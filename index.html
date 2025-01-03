@@ -1150,20 +1150,30 @@
 				'新年快乐！',
 		                '希望这句话以后每一年的今天都可以给你说哈哈<button style="border:none; background:none; color: inherit; font-family: inherit; font-size: inherit; cursor: pointer;" onclick="window.location.href=\'https://www.baidu.com\'">❤</button>',
             ]
-            let str = text.join('<br><br>')
-            let str_ = ''
-            let i = 0
-            let content = document.getElementById('contents')
-            let timer = setInterval(() => {
-                if (str_.length < str.length) {
-                    str_ += str[i++]
-                    content.innerHTML = '<p>' + str_ + '<span class="xx" style="opacity: 1;    color: red;">❤</span></p>'                        //打印时加光标
-                } else {
-                    clearInterval(timer)
-                    content.innerHTML = '<p>' + str_ + '</p>'
-                }
-            }, 100)
-        }
+            let strArr = [];
+        text.forEach((item) => {
+            if (item.startsWith('<button')) {
+                strArr.push(item);
+            } else {
+                item.split('').forEach((char) => {
+                    strArr.push(char);
+                });
+            }
+        });
+        let i = 0;
+        let content = document.getElementById('contents');
+        let timer = setInterval(() => {
+            if (i < strArr.length) {
+                let str_ = strArr.slice(0, i).join('');
+                content.innerHTML = '<p>' + str_ + '<span class="xx" style="opacity: 1;    color: red;">❤</span></p>'; //打印时加光标
+                i++;
+            } else {
+                clearInterval(timer);
+                let str_ = strArr.join('');
+                content.innerHTML = '<p>' + str_ + '</p>';
+            }
+        }, 100);
+    }
     </script><!--!‭‪‪‬‏‪‫‬‪‬‏‏‭‪‫‬‏‪‬‎‬--><!--!‬‏‎‭‪‏‬‏‫‫‬‫‫‬‏‭‫‪‫‬‪‬‏‫-->
 
 
